@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Link-in-Bio Landing Page
 
-## Getting Started
 
-First, run the development server:
+A modern, responsive, and fully customizable "Link-in-Bio" landing page built with React and Tailwind CSS v4. Designed to showcase your profile, professional links, and social media presence with a polished, animated user interface.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌟 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🎨 Dynamic Theme: 
+Smooth Dark/Light mode toggle with persistent state.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 📱 Fully Responsive:
+Optimized layouts for both mobile and desktop views.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ✨ Animations
+Entrance animations for all elements.
+Subtle "spotlight" gradient background effect.
+Custom ripple effects on buttons and links.
+Pulsing "Available for Work" status badge.
 
-## Learn More
+### 🖼️ Image Lightbox
+Clickable profile avatar that expands into a focused modal view.
 
-To learn more about Next.js, take a look at the following resources:
+### 🚧 Construction Modal
+Built-in "Work in Progress" modal to inform visitors if your main portfolio is being updated.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🔍 SEO Optimized
+Integrated JSON-LD structured data and Schema.org microdata for better search engine visibility.⚡ Modern Stack: Built using the latest Tailwind CSS v4 features.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Technologies Used
+React: Component-based UI library.
+Tailwind CSS v4: Utility-first CSS framework for styling.
+Lucide React: Beautiful and consistent icon set.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Quick Start
+### Install DependenciesEnsure you have lucide-react installed in your project.npm install lucide-react
+Add the Component:Copy the LinkInBio.jsx code into your project (e.g., app/page.jsx for Next.js or src/App.jsx for Vite).Customize Data:Update the profile object and links array in the code to reflect your own information.const profile = {
+  name: "Your Name",
+  bio: "Your bio description...",
+  // ...
+};
+📄 LicenseThis project is open source and available for use in your personal or commercial portfolios.Created by Shan Surat

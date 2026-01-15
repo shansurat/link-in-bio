@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "https://freelancer.shansurat.com",
+      "destination": "https://freelancer.com/u/ksurat",
+      "permanent": true
+    }
+  ]
+}
