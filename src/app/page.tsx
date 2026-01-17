@@ -34,7 +34,7 @@ const App = () => {
   const profile = {
     name: "Shan Surat",
     bio: "Architecting scalable web solutions and crafting beautiful user interfaces. Bridging the gap between engineering and design.",
-    avatar: "https://github.com/shansurat.png", // Using GitHub avatar
+    avatar: "shan-surat.webp",
     location: "Metro Manila, Philippines 🇵🇭",
   };
 
