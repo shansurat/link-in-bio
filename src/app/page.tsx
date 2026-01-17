@@ -423,7 +423,7 @@ const App = () => {
                 <MapPin size={16} />
                 <span itemProp="addressLocality">{profile.location}</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center w-40 gap-2">
                 <Clock size={16} />
                 {time} (PHST)
               </div>
