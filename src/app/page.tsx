@@ -471,9 +471,9 @@ const App = () => {
                     </div>
 
                     <div className="flex-1 min-w-0 text-left">
-                      <h3 className="font-semibold text-sm sm:text-base">
+                      <h2 className="font-semibold text-sm sm:text-base">
                         {link.title}
-                      </h3>
+                      </h2>
                       {link.subtitle && (
                         <p className={`text-xs ${subTextColor} mt-0.5`}>
                           {link.subtitle}
@@ -561,7 +561,7 @@ const App = () => {
               >
                 <Construction size={32} />
               </div>
-              <h3 className="text-xl font-bold">Website Under Construction</h3>
+              <h2 className="text-xl font-bold">Website Under Construction</h2>
               <p className={`text-sm leading-relaxed ${subTextColor}`}>
                 Thank you for visiting! I am currently redesigning my portfolio
                 to better showcase my latest full-stack projects and design
