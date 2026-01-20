@@ -13,12 +13,15 @@ import {
   Sun,
   Share2,
   Check,
-  Construction,
   MapPin,
   Clock,
   MessageCircle,
   Info,
   X,
+  Zap,
+  Box,
+  Construction,
+  Terminal,
 } from "lucide-react";
 
 const App = () => {
@@ -26,7 +29,7 @@ const App = () => {
   const [copied, setCopied] = useState(false);
   const [time, setTime] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAvatarExpanded, setIsAvatarExpanded] = useState(false); // State for avatar modal
+  const [isAvatarExpanded, setIsAvatarExpanded] = useState(false);
 
   // Data for the profile
   const profile = {
@@ -36,6 +39,26 @@ const App = () => {
     avatarBig: "shansurat-2-376.webp",
     location: "Metro Manila, Philippines 🇵🇭",
   };
+
+  // Tech stack used for this specific website
+  const techStack = [
+    { name: "Next.js", icon: <Zap size={14} />, color: "text-white bg-black" },
+    {
+      name: "React",
+      icon: <Code size={14} />,
+      color: "text-blue-500 bg-blue-50",
+    },
+    {
+      name: "Tailwind CSS",
+      icon: <Palette size={14} />,
+      color: "text-cyan-500 bg-cyan-50",
+    },
+    {
+      name: "Lucide Icons",
+      icon: <Box size={14} />,
+      color: "text-orange-500 bg-orange-50",
+    },
+  ];
 
   // JSON-LD Structured Data for SEO
   const structuredData = {
@@ -78,44 +101,6 @@ const App = () => {
   // Toggle theme
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
-  };
-
-  // Ripple Effect Handler
-  const createRipple = (event: any) => {
-    const button = event.currentTarget;
-    // Target the specific container for the ripple to avoid overflow issues with external badges
-    const container = button.querySelector(".ripple-container");
-
-    if (!container) return;
-
-    const circle = document.createElement("span");
-    const diameter = Math.max(container.clientWidth, container.clientHeight);
-    const radius = diameter / 2;
-
-    const rect = container.getBoundingClientRect();
-
-    circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${event.clientX - rect.left - radius}px`;
-    circle.style.top = `${event.clientY - rect.top - radius}px`;
-    circle.classList.add("ripple");
-
-    // Dynamic ripple color based on theme
-    circle.style.backgroundColor = isDarkMode
-      ? "rgba(255, 255, 255, 0.05)"
-      : "rgba(0, 0, 0, 0.02)";
-
-    // Remove existing ripples to prevent duplicate accumulation
-    const existingRipple = container.getElementsByClassName("ripple")[0];
-    if (existingRipple) {
-      existingRipple.remove();
-    }
-
-    container.appendChild(circle);
-
-    // Clean up after animation
-    setTimeout(() => {
-      circle.remove();
-    }, 600);
   };
 
   // Copy URL handler
@@ -218,10 +203,25 @@ const App = () => {
   const textColor = isDarkMode ? "text-slate-100" : "text-slate-900";
   const subTextColor = isDarkMode ? "text-slate-400" : "text-slate-500";
 
+  // Common Header Button Styles
+  const headerBtnClass = `cursor-pointer p-3 rounded-full transition-all duration-200 relative group border backdrop-blur-sm ${
+    isDarkMode
+      ? "bg-slate-800/80 hover:bg-slate-700 border-transparent"
+      : "bg-white/80 hover:bg-slate-100 shadow-sm border-transparent"
+  }`;
+
   return (
     <div
       className={`min-h-screen w-full transition-colors duration-300 ${bgGradient} ${textColor} font-sans flex flex-col items-center py-12 px-4 md:py-24 md:px-6 relative overflow-hidden`}
     >
+      {/* PERFORMANCE OPTIMIZATION: Preconnects */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossOrigin="anonymous"
+      />
+
       {/* Inject JSON-LD Schema */}
       <script
         type="application/ld+json"
@@ -253,20 +253,10 @@ const App = () => {
         {/* Header Controls */}
         <header className="w-full flex justify-between items-center px-2 mb-2 md:mb-4 animate-fade-in-down">
           <button
-            onClick={(e) => {
-              createRipple(e);
-              toggleTheme();
-            }}
-            className={`cursor-pointer p-3 rounded-full transition-all duration-200 relative group`}
+            onClick={toggleTheme}
+            className={headerBtnClass}
             aria-label="Toggle Theme"
           >
-            <div
-              className={`ripple-container absolute inset-0 rounded-full overflow-hidden ${
-                isDarkMode
-                  ? "bg-slate-800/80 group-hover:bg-slate-700"
-                  : "bg-white/80 group-hover:bg-slate-100 shadow-sm"
-              }`}
-            ></div>
             <div
               className={`relative z-10 ${
                 isDarkMode ? "text-yellow-400" : "text-slate-600"
@@ -277,22 +267,12 @@ const App = () => {
           </button>
 
           <div className="flex items-center gap-3">
-            {/* Info Button with Notification Badge */}
+            {/* Info/About Button */}
             <button
-              onClick={(e) => {
-                createRipple(e);
-                setIsModalOpen(true);
-              }}
-              className={`cursor-pointer relative p-3 rounded-full transition-all duration-200 group`}
-              aria-label="Information"
+              onClick={() => setIsModalOpen(true)}
+              className={headerBtnClass}
+              aria-label="About this site"
             >
-              <div
-                className={`ripple-container absolute inset-0 rounded-full overflow-hidden ${
-                  isDarkMode
-                    ? "bg-slate-800/80 group-hover:bg-slate-700"
-                    : "bg-white/80 group-hover:bg-slate-100 shadow-sm"
-                }`}
-              ></div>
               <div
                 className={`relative z-10 ${
                   isDarkMode ? "text-slate-300" : "text-slate-600"
@@ -300,25 +280,14 @@ const App = () => {
               >
                 <Info size={20} />
               </div>
-              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse border border-slate-800 z-20"></span>
             </button>
 
             {/* Share Button */}
             <button
-              onClick={(e) => {
-                createRipple(e);
-                handleShare();
-              }}
-              className={`cursor-pointer p-3 rounded-full transition-all duration-200 flex items-center gap-2 relative group`}
+              onClick={handleShare}
+              className={`${headerBtnClass} flex items-center gap-2`}
               aria-label="Share Profile"
             >
-              <div
-                className={`ripple-container absolute inset-0 rounded-full overflow-hidden ${
-                  isDarkMode
-                    ? "bg-slate-800/80 group-hover:bg-slate-700"
-                    : "bg-white/80 group-hover:bg-slate-100 shadow-sm"
-                }`}
-              ></div>
               <div
                 className={`relative z-10 ${
                   isDarkMode ? "text-slate-300" : "text-slate-600"
@@ -355,7 +324,7 @@ const App = () => {
               />
             </button>
 
-            {/* Status Badge with Ping Animation */}
+            {/* Status Badge */}
             <div className="absolute bottom-2 right-2 w-6 h-6 pointer-events-none">
               <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-subtle-ping"></span>
               <span
@@ -372,7 +341,6 @@ const App = () => {
 
             {/* Roles Pills Container */}
             <div className="flex flex-wrap justify-center gap-3">
-              {/* Full Stack Pill */}
               <div
                 className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm
                 ${
@@ -388,7 +356,6 @@ const App = () => {
                 <span>Full Stack Developer</span>
               </div>
 
-              {/* Graphic Designer Pill */}
               <div
                 className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm
                 ${
@@ -403,7 +370,6 @@ const App = () => {
               </div>
             </div>
 
-            {/* Bio */}
             <p
               className={`max-w-xs text-base leading-relaxed ${subTextColor} mt-2 mx-auto`}
               itemProp="description"
@@ -411,12 +377,8 @@ const App = () => {
               {profile.bio}
             </p>
 
-            {/* Location and Time */}
             <div
               className={`flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-sm font-medium ${subTextColor} mt-6`}
-              itemProp="address"
-              itemScope
-              itemType="https://schema.org/PostalAddress"
             >
               <div className="flex items-center gap-2">
                 <MapPin size={16} />
@@ -432,7 +394,6 @@ const App = () => {
 
         {/* Links Section */}
         <nav className="w-full animate-fade-in-up delay-200">
-          {/* Grid layout with 2 columns on both mobile and desktop */}
           <ul className="grid grid-cols-2 gap-5">
             {links.map((link) => (
               <li key={link.id} className={link.colSpan}>
@@ -442,56 +403,53 @@ const App = () => {
                   rel={link.rel}
                   itemProp={link.itemProp}
                   title={link.title}
-                  onClick={createRipple}
                   className={`cursor-pointer block relative h-full group transition-transform duration-200 hover:-translate-y-1`}
                 >
-                  {/* Container for Ripple & Background - Overflow Hidden */}
+                  {/* Inner Card Body with Clipping */}
                   <div
-                    className={`ripple-container absolute inset-0 rounded-2xl overflow-hidden border backdrop-blur-sm transition-all duration-200 group-hover:shadow-xl ${cardBg} ${
+                    className={`relative h-full rounded-2xl overflow-hidden border backdrop-blur-sm transition-all duration-200 group-hover:shadow-xl ${cardBg} ${
                       link.featured
                         ? isDarkMode
                           ? "ring-2 ring-indigo-500/50"
                           : "ring-2 ring-blue-400/50"
                         : ""
                     }`}
-                  ></div>
+                  >
+                    <div className="relative z-10 flex items-center gap-4 p-5 h-full">
+                      <div
+                        className={`p-3.5 rounded-xl transition-colors shrink-0
+                        ${
+                          isDarkMode
+                            ? "bg-slate-700 group-hover:bg-indigo-500/20 group-hover:text-indigo-400"
+                            : "bg-slate-100 group-hover:bg-blue-100 group-hover:text-blue-600"
+                        }
+                      `}
+                      >
+                        {link.icon}
+                      </div>
 
-                  {/* Content - Z-Index to stay on top of ripple */}
-                  <div className="relative z-10 flex items-center gap-4 p-5 h-full">
-                    <div
-                      className={`p-3.5 rounded-xl transition-colors shrink-0
-                      ${
-                        isDarkMode
-                          ? "bg-slate-700 group-hover:bg-indigo-500/20 group-hover:text-indigo-400"
-                          : "bg-slate-100 group-hover:bg-blue-100 group-hover:text-blue-600"
-                      }
-                    `}
-                    >
-                      {link.icon}
-                    </div>
+                      <div className="flex-1 min-w-0 text-left">
+                        <h2 className="font-semibold text-sm sm:text-base">
+                          {link.title}
+                        </h2>
+                        {link.subtitle && (
+                          <p className={`text-xs ${subTextColor} mt-0.5`}>
+                            {link.subtitle}
+                          </p>
+                        )}
+                      </div>
 
-                    <div className="flex-1 min-w-0 text-left">
-                      <h2 className="font-semibold text-sm sm:text-base">
-                        {link.title}
-                      </h2>
-                      {link.subtitle && (
-                        <p className={`text-xs ${subTextColor} mt-0.5`}>
-                          {link.subtitle}
-                        </p>
+                      {link.colSpan === "md:col-span-2" && (
+                        <div
+                          className={`hidden md:block opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 ${subTextColor}`}
+                        >
+                          <ArrowRight size={20} />
+                        </div>
                       )}
                     </div>
-
-                    {/* Show arrow only on full-width cards on desktop */}
-                    {link.colSpan === "md:col-span-2" && (
-                      <div
-                        className={`hidden md:block opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 ${subTextColor}`}
-                      >
-                        <ArrowRight size={20} />
-                      </div>
-                    )}
                   </div>
 
-                  {/* Featured Badge - Outside the overflow-hidden container */}
+                  {/* Featured Badge - Outside the card body, but inside the transform wrapper */}
                   {link.featured && (
                     <span className="absolute -top-2.5 -right-2 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full shadow-sm z-20">
                       Featured
@@ -509,9 +467,8 @@ const App = () => {
         >
           <a
             href="mailto:kristianmarksurat@gmail.com?subject=Inquiry:%20Custom%20Link-in-Bio%20Page"
-            onClick={createRipple}
-            className={`relative inline-block mb-6 text-xs font-bold tracking-widest uppercase opacity-80 hover:opacity-100 transition-all duration-300 hover:tracking-[0.2em] cursor-pointer ${
-              isDarkMode ? "text-indigo-400" : "text-blue-600"
+            className={`relative inline-block mb-6 text-xs font-bold tracking-widest uppercase hover:tracking-[0.2em] transition-all duration-300 cursor-pointer ${
+              isDarkMode ? "text-indigo-300" : "text-blue-700"
             }`}
           >
             ✨ Want something like this page? Hit me up!
@@ -524,11 +481,8 @@ const App = () => {
             href="https://github.com/shansurat/link-in-bio"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={createRipple}
             className="inline-flex items-center gap-1.5 mt-2 text-xs opacity-70 hover:opacity-100 transition-opacity hover:underline cursor-pointer relative px-1 rounded group"
           >
-            {/* Invisible ripple container for link */}
-            <span className="ripple-container absolute inset-0 rounded overflow-hidden"></span>
             <span className="relative z-10 flex items-center gap-1.5">
               <Github size={12} />
               View Source on My GitHub
@@ -537,7 +491,7 @@ const App = () => {
         </footer>
       </main>
 
-      {/* Info Modal */}
+      {/* About Site / Tech Stack Modal */}
       {isModalOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
@@ -551,43 +505,99 @@ const App = () => {
             }`}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex flex-col items-center text-center gap-5">
-              <div
-                className={`p-4 rounded-full mb-2 ${
-                  isDarkMode
-                    ? "bg-amber-500/10 text-amber-500"
-                    : "bg-amber-100 text-amber-600"
-                }`}
-              >
-                <Construction size={32} />
-              </div>
-              <h2 className="text-xl font-bold">Website Under Construction</h2>
-              <p className={`text-sm leading-relaxed ${subTextColor}`}>
-                Thank you for visiting! I am currently redesigning my portfolio
-                to better showcase my latest full-stack projects and design
-                work. This page serves as a temporary hub for my professional
-                links.
-              </p>
-              <p className={`text-sm leading-relaxed ${subTextColor}`}>
-                While the main site is being built, you can view my detailed
-                work history on Freelancer, check my code on GitHub, or contact
-                me directly for collaboration opportunities.
-              </p>
-              <button
-                onClick={(e) => {
-                  createRipple(e);
-                  setIsModalOpen(false);
-                }}
-                className={`cursor-pointer w-auto px-6 py-2 rounded-full font-medium transition-transform hover:scale-105 active:scale-95 mt-6 relative overflow-hidden group ${
-                  isDarkMode
-                    ? "bg-indigo-600 text-white hover:bg-indigo-700"
-                    : "bg-blue-600 text-white hover:bg-blue-700"
-                }`}
-              >
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/5 transition-colors"
+            >
+              <X size={20} className={subTextColor} />
+            </button>
+
+            <div className="flex flex-col gap-5">
+              {/* Header */}
+              <div className="flex items-center gap-3 pb-4 border-b border-slate-700/50">
                 <div
-                  className={`ripple-container absolute inset-0 rounded-full`}
-                ></div>
-                <span className="relative z-10">Got it</span>
+                  className={`p-3 rounded-xl ${
+                    isDarkMode
+                      ? "bg-indigo-500/10 text-indigo-400"
+                      : "bg-blue-100 text-blue-600"
+                  }`}
+                >
+                  <Terminal size={24} />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold">About This Page</h2>
+                  <p className={`text-xs ${subTextColor}`}>Site Information</p>
+                </div>
+              </div>
+
+              {/* Bio Content - Focused on the SITE */}
+              <div
+                className={`text-sm leading-relaxed space-y-4 ${subTextColor}`}
+              >
+                <p>
+                  This single-page application is designed as a performant,
+                  accessible hub for my digital presence. It uses a modern,
+                  component-based architecture to ensure fast load times and a
+                  seamless mobile experience.
+                </p>
+
+                {/* Construction Note */}
+                <div
+                  className={`p-3 rounded-lg text-xs border flex gap-3 items-start ${
+                    isDarkMode
+                      ? "bg-amber-500/5 border-amber-500/20 text-amber-200/80"
+                      : "bg-amber-50 border-amber-200 text-amber-700"
+                  }`}
+                >
+                  <Construction size={16} className="shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Status:</strong> This page serves as a temporary
+                    gateway. The primary portfolio website is currently
+                    undergoing a complete redesign and re-engineering.
+                  </span>
+                </div>
+              </div>
+
+              {/* Tech Stack Section */}
+              <div className="mt-2">
+                <h3 className="text-xs font-bold uppercase tracking-wider opacity-70 mb-3">
+                  Built With
+                </h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {techStack.map((tech) => (
+                    <div
+                      key={tech.name}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${
+                        isDarkMode
+                          ? "bg-slate-700/50 border-slate-600 hover:bg-slate-700"
+                          : "bg-slate-50 border-slate-200 hover:bg-slate-100"
+                      }`}
+                    >
+                      <span
+                        className={
+                          isDarkMode
+                            ? "text-slate-200"
+                            : tech.color.split(" ")[0]
+                        }
+                      >
+                        {tech.icon}
+                      </span>
+                      <span>{tech.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Subtle Close Button */}
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className={`cursor-pointer w-full py-2.5 mt-2 rounded-lg text-sm font-medium transition-colors relative overflow-hidden group ${
+                  isDarkMode
+                    ? "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
+                    : "text-slate-500 hover:text-slate-700 hover:bg-slate-100"
+                }`}
+              >
+                <span className="relative z-10">Close</span>
               </button>
             </div>
           </div>
@@ -664,19 +674,6 @@ const App = () => {
         }
         .animate-scale-in {
           animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .ripple {
-          position: absolute;
-          border-radius: 50%;
-          transform: scale(0);
-          animation: ripple 0.6s linear;
-          pointer-events: none;
-        }
-        @keyframes ripple {
-          to {
-            transform: scale(4);
-            opacity: 0;
-          }
         }
         @keyframes subtlePing {
           75%, 100% {
