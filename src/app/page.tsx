@@ -1,11 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Github,
   Linkedin,
-  Globe,
   Mail,
-  Twitter,
   Code,
   Database,
   Palette,
@@ -34,7 +32,7 @@ const App = () => {
   const profile = {
     name: "Shan Surat",
     bio: "Architecting scalable web solutions and crafting beautiful user interfaces. Bridging the gap between engineering and design.",
-    avatar: "shansurat-210.webp",
+    avatar: "shansurat-2-210.webp",
     location: "Metro Manila, Philippines 🇵🇭",
   };
 
