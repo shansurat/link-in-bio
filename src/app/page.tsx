@@ -22,6 +22,7 @@ import {
   Box,
   Construction,
   Terminal,
+  FileText
 } from "lucide-react";
 
 const App = () => {
@@ -204,11 +205,10 @@ const App = () => {
   const subTextColor = isDarkMode ? "text-slate-400" : "text-slate-500";
 
   // Common Header Button Styles
-  const headerBtnClass = `cursor-pointer p-3 rounded-full transition-all duration-200 relative group border backdrop-blur-sm ${
-    isDarkMode
-      ? "bg-slate-800/80 hover:bg-slate-700 border-transparent"
-      : "bg-white/80 hover:bg-slate-100 shadow-sm border-transparent"
-  }`;
+  const headerBtnClass = `cursor-pointer p-3 rounded-full transition-all duration-200 relative group border backdrop-blur-sm ${isDarkMode
+    ? "bg-slate-800/80 hover:bg-slate-700 border-transparent"
+    : "bg-white/80 hover:bg-slate-100 shadow-sm border-transparent"
+    }`;
 
   return (
     <div
@@ -231,11 +231,10 @@ const App = () => {
       {/* Top Gradient Overlay for depth */}
       <div
         className={`absolute top-0 left-0 w-full h-96 pointer-events-none transition-all duration-700
-        ${
-          isDarkMode
+        ${isDarkMode
             ? "opacity-50 bg-[radial-gradient(ellipse_at_top,var(--color-indigo-500),var(--color-slate-900),transparent)]"
             : "opacity-40 bg-[radial-gradient(ellipse_at_top,var(--color-blue-400),var(--color-slate-100),transparent)]"
-        }`}
+          }`}
       />
 
       {/* Central Spotlight Gradient Light */}
@@ -258,9 +257,8 @@ const App = () => {
             aria-label="Toggle Theme"
           >
             <div
-              className={`relative z-10 ${
-                isDarkMode ? "text-yellow-400" : "text-slate-600"
-              }`}
+              className={`relative z-10 ${isDarkMode ? "text-yellow-400" : "text-slate-600"
+                }`}
             >
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </div>
@@ -274,11 +272,24 @@ const App = () => {
               aria-label="About this site"
             >
               <div
-                className={`relative z-10 ${
-                  isDarkMode ? "text-slate-300" : "text-slate-600"
-                }`}
+                className={`relative z-10 ${isDarkMode ? "text-slate-300" : "text-slate-600"
+                  }`}
               >
                 <Info size={20} />
+              </div>
+            </button>
+
+            {/* Resume Button */}
+            <button
+              onClick={() => window.open('Surat, Kristian Mark (Shan) - Resume.pdf', '_blank')}
+              className={headerBtnClass}
+              aria-label="About this site"
+            >
+              <div
+                className={`relative z-10 ${isDarkMode ? "text-slate-300" : "text-slate-600"
+                  }`}
+              >
+                <FileText size={20} />
               </div>
             </button>
 
@@ -289,9 +300,8 @@ const App = () => {
               aria-label="Share Profile"
             >
               <div
-                className={`relative z-10 ${
-                  isDarkMode ? "text-slate-300" : "text-slate-600"
-                }`}
+                className={`relative z-10 ${isDarkMode ? "text-slate-300" : "text-slate-600"
+                  }`}
               >
                 {copied ? (
                   <Check size={20} className="text-green-500" />
@@ -309,10 +319,9 @@ const App = () => {
             <button
               onClick={() => setIsAvatarExpanded(true)}
               className={`w-32 h-32 rounded-full flex items-center justify-center border-4 shadow-xl transition-transform duration-300 group-hover:scale-105 overflow-hidden cursor-zoom-in
-                ${
-                  isDarkMode
-                    ? "border-slate-800 bg-slate-800"
-                    : "border-white bg-white"
+                ${isDarkMode
+                  ? "border-slate-800 bg-slate-800"
+                  : "border-white bg-white"
                 }`}
               aria-label="Enlarge profile picture"
             >
@@ -343,11 +352,10 @@ const App = () => {
             <div className="flex flex-wrap justify-center gap-3">
               <div
                 className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm
-                ${
-                  isDarkMode
+                ${isDarkMode
                     ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
                     : "bg-blue-50 text-blue-600 border border-blue-200"
-                }`}
+                  }`}
                 itemProp="jobTitle"
               >
                 <Code size={14} />
@@ -358,11 +366,10 @@ const App = () => {
 
               <div
                 className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm
-                ${
-                  isDarkMode
+                ${isDarkMode
                     ? "bg-purple-500/10 text-purple-400 border border-purple-500/20"
                     : "bg-purple-50 text-purple-600 border border-purple-200"
-                }`}
+                  }`}
                 itemProp="jobTitle"
               >
                 <Palette size={14} />
@@ -407,22 +414,20 @@ const App = () => {
                 >
                   {/* Inner Card Body with Clipping */}
                   <div
-                    className={`relative h-full rounded-2xl overflow-hidden border backdrop-blur-sm transition-all duration-200 group-hover:shadow-xl ${cardBg} ${
-                      link.featured
-                        ? isDarkMode
-                          ? "ring-2 ring-indigo-500/50"
-                          : "ring-2 ring-blue-400/50"
-                        : ""
-                    }`}
+                    className={`relative h-full rounded-2xl overflow-hidden border backdrop-blur-sm transition-all duration-200 group-hover:shadow-xl ${cardBg} ${link.featured
+                      ? isDarkMode
+                        ? "ring-2 ring-indigo-500/50"
+                        : "ring-2 ring-blue-400/50"
+                      : ""
+                      }`}
                   >
                     <div className="relative z-10 flex items-center gap-4 p-5 h-full">
                       <div
                         className={`p-3.5 rounded-xl transition-colors shrink-0
-                        ${
-                          isDarkMode
+                        ${isDarkMode
                             ? "bg-slate-700 group-hover:bg-indigo-500/20 group-hover:text-indigo-400"
                             : "bg-slate-100 group-hover:bg-blue-100 group-hover:text-blue-600"
-                        }
+                          }
                       `}
                       >
                         {link.icon}
@@ -467,9 +472,8 @@ const App = () => {
         >
           <a
             href="mailto:kristianmarksurat@gmail.com?subject=Inquiry:%20Custom%20Link-in-Bio%20Page"
-            className={`relative inline-block mb-6 text-xs font-bold tracking-widest uppercase hover:tracking-[0.2em] transition-all duration-300 cursor-pointer ${
-              isDarkMode ? "text-indigo-300" : "text-blue-700"
-            }`}
+            className={`relative inline-block mb-6 text-xs font-bold tracking-widest uppercase hover:tracking-[0.2em] transition-all duration-300 cursor-pointer ${isDarkMode ? "text-indigo-300" : "text-blue-700"
+              }`}
           >
             ✨ Want something like this page? Hit me up!
           </a>
@@ -498,11 +502,10 @@ const App = () => {
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className={`relative w-full max-w-sm p-8 rounded-2xl shadow-2xl transform transition-all scale-100 ${
-              isDarkMode
-                ? "bg-slate-800 text-slate-100"
-                : "bg-white text-slate-900"
-            }`}
+            className={`relative w-full max-w-sm p-8 rounded-2xl shadow-2xl transform transition-all scale-100 ${isDarkMode
+              ? "bg-slate-800 text-slate-100"
+              : "bg-white text-slate-900"
+              }`}
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -516,11 +519,10 @@ const App = () => {
               {/* Header */}
               <div className="flex items-center gap-3 pb-4 border-b border-slate-700/50">
                 <div
-                  className={`p-3 rounded-xl ${
-                    isDarkMode
-                      ? "bg-indigo-500/10 text-indigo-400"
-                      : "bg-blue-100 text-blue-600"
-                  }`}
+                  className={`p-3 rounded-xl ${isDarkMode
+                    ? "bg-indigo-500/10 text-indigo-400"
+                    : "bg-blue-100 text-blue-600"
+                    }`}
                 >
                   <Terminal size={24} />
                 </div>
@@ -543,11 +545,10 @@ const App = () => {
 
                 {/* Construction Note */}
                 <div
-                  className={`p-3 rounded-lg text-xs border flex gap-3 items-start ${
-                    isDarkMode
-                      ? "bg-amber-500/5 border-amber-500/20 text-amber-200/80"
-                      : "bg-amber-50 border-amber-200 text-amber-700"
-                  }`}
+                  className={`p-3 rounded-lg text-xs border flex gap-3 items-start ${isDarkMode
+                    ? "bg-amber-500/5 border-amber-500/20 text-amber-200/80"
+                    : "bg-amber-50 border-amber-200 text-amber-700"
+                    }`}
                 >
                   <Construction size={16} className="shrink-0 mt-0.5" />
                   <span>
@@ -567,11 +568,10 @@ const App = () => {
                   {techStack.map((tech) => (
                     <div
                       key={tech.name}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${
-                        isDarkMode
-                          ? "bg-slate-700/50 border-slate-600 hover:bg-slate-700"
-                          : "bg-slate-50 border-slate-200 hover:bg-slate-100"
-                      }`}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${isDarkMode
+                        ? "bg-slate-700/50 border-slate-600 hover:bg-slate-700"
+                        : "bg-slate-50 border-slate-200 hover:bg-slate-100"
+                        }`}
                     >
                       <span
                         className={
@@ -591,11 +591,10 @@ const App = () => {
               {/* Subtle Close Button */}
               <button
                 onClick={() => setIsModalOpen(false)}
-                className={`cursor-pointer w-full py-2.5 mt-2 rounded-lg text-sm font-medium transition-colors relative overflow-hidden group ${
-                  isDarkMode
-                    ? "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
-                    : "text-slate-500 hover:text-slate-700 hover:bg-slate-100"
-                }`}
+                className={`cursor-pointer w-full py-2.5 mt-2 rounded-lg text-sm font-medium transition-colors relative overflow-hidden group ${isDarkMode
+                  ? "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
+                  : "text-slate-500 hover:text-slate-700 hover:bg-slate-100"
+                  }`}
               >
                 <span className="relative z-10">Close</span>
               </button>
