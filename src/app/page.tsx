@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   Github,
   Linkedin,
@@ -325,11 +326,14 @@ const App = () => {
                 }`}
               aria-label="Enlarge profile picture"
             >
-              <img
-                src={profile.avatarSmall}
+              <Image
+                src={`/${profile.avatarSmall}`}
                 alt={profile.name}
+                width={210}
+                height={210}
                 className="w-full h-full object-cover"
                 itemProp="image"
+                priority
               />
             </button>
 
@@ -610,10 +614,13 @@ const App = () => {
           onClick={() => setIsAvatarExpanded(false)}
         >
           <div className="relative" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={profile.avatarBig}
+            <Image
+              src={`/${profile.avatarBig}`}
               alt={profile.name}
+              width={376}
+              height={376}
               className="w-64 h-64 md:w-96 md:h-96 rounded-full border-4 border-white shadow-2xl object-cover animate-scale-in"
+              priority
             />
             <button
               onClick={() => setIsAvatarExpanded(false)}
