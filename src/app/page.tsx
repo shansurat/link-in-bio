@@ -63,26 +63,55 @@ const App = () => {
     },
   ];
 
+  // const _structuredData = {
+  //   "@context": "https://schema.org",
+  //   "@type": "Person",
+  //   name: profile.name,
+  //   image: profile.avatar,
+  //   jobTitle: ["Full Stack Developer", "Graphic Designer"],
+  //   url: typeof window !== "undefined" ? window.location.href : "",
+  //   sameAs: [
+  //     "https://www.freelancer.com/u/ksurat",
+  //     "https://github.com/shansurat",
+  //     "https://linkedin.com/in/shansurat",
+  //   ],
+  //   address: {
+  //     "@type": "PostalAddress",
+  //     addressLocality: "Marikina",
+  //     addressCountry: "Philippines",
+  //   },
+  //   description: profile.bio,
+  // };
+
   // JSON-LD Structured Data for SEO
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: profile.name,
-    image: profile.avatar,
-    jobTitle: ["Full Stack Developer", "Graphic Designer"],
-    url: typeof window !== "undefined" ? window.location.href : "",
-    sameAs: [
-      "https://www.freelancer.com/u/ksurat",
-      "https://github.com/shansurat",
-      "https://linkedin.com/in/shansurat",
-    ],
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Marikina",
-      addressCountry: "Philippines",
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: profile.name,
+      "alternateName": ["shansurat.dev", "Shan"],
+      "url": "https://shansurat.dev/"
     },
-    description: profile.bio,
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: profile.name,
+      "image": profile.avatar,
+      "jobTitle": ["Full Stack Developer", "Graphic Designer"],
+      "url": "https://shansurat.dev/",
+      "sameAs": [
+        "https://www.freelancer.com/u/ksurat",
+        "https://github.com/shansurat",
+        "https://linkedin.com/in/shansurat"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Metro Manila",
+        "addressCountry": "PH"
+      },
+      "description": profile.bio
+    }
+  ];
 
   // Resume button tooltip animation on load
   useEffect(() => {
@@ -331,7 +360,7 @@ const App = () => {
                 `}
               >
                 View my Resume
-                <div 
+                <div
                   className={`absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 border-t border-l
                     ${isDarkMode ? "bg-indigo-600 border-indigo-500" : "bg-blue-600 border-blue-500"}
                   `}
