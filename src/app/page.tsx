@@ -39,8 +39,7 @@ const App = () => {
   const profile = {
     name: "Shan Surat",
     bio: "Architecting scalable web solutions and crafting beautiful user interfaces. Bridging the gap between engineering and design.",
-    avatarSmall: "shansurat-2-210.webp",
-    avatarBig: "shansurat-2-376.webp",
+    avatar: "shansurat.webp",
     location: "Metro Manila, Philippines 🇵🇭",
   };
 
@@ -69,7 +68,7 @@ const App = () => {
     "@context": "https://schema.org",
     "@type": "Person",
     name: profile.name,
-    image: profile.avatarBig,
+    image: profile.avatar,
     jobTitle: ["Full Stack Developer", "Graphic Designer"],
     url: typeof window !== "undefined" ? window.location.href : "",
     sameAs: [
@@ -373,10 +372,10 @@ const App = () => {
               aria-label="Enlarge profile picture"
             >
               <Image
-                src={`/${profile.avatarSmall}`}
+                src={`/${profile.avatar}`}
                 alt={profile.name}
-                width={210}
-                height={210}
+                width={128}
+                height={128}
                 className="w-full h-full object-cover"
                 itemProp="image"
                 priority
@@ -661,10 +660,10 @@ const App = () => {
         >
           <div className="relative" onClick={(e) => e.stopPropagation()}>
             <Image
-              src={`/${profile.avatarBig}`}
+              src={`/${profile.avatar}`}
               alt={profile.name}
-              width={376}
-              height={376}
+              width={384}
+              height={384}
               className="w-64 h-64 md:w-96 md:h-96 rounded-full border-4 border-white shadow-2xl object-cover animate-scale-in"
               priority
             />
