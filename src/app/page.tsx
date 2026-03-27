@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import {
   Github,
@@ -32,6 +32,8 @@ const App = () => {
   const [time, setTime] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAvatarExpanded, setIsAvatarExpanded] = useState(false);
+  const [showResumeTooltip, setShowResumeTooltip] = useState(false);
+  const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Data for the profile
   const profile = {
@@ -82,6 +84,21 @@ const App = () => {
     },
     description: profile.bio,
   };
+
+  // Resume button tooltip animation on load
+  useEffect(() => {
+    const showTimer = setTimeout(() => {
+      setShowResumeTooltip(true);
+      tooltipTimeoutRef.current = setTimeout(() => {
+        setShowResumeTooltip(false);
+      }, 4000);
+    }, 1500);
+
+    return () => {
+      clearTimeout(showTimer);
+      if (tooltipTimeoutRef.current) clearTimeout(tooltipTimeoutRef.current);
+    };
+  }, []);
 
   // Update time for Philippines
   useEffect(() => {
@@ -281,18 +298,40 @@ const App = () => {
             </button>
 
             {/* Resume Button */}
-            <button
-              onClick={() => window.open('Surat, Kristian Mark (Shan) - Resume.pdf', '_blank')}
-              className={headerBtnClass}
-              aria-label="About this site"
-            >
-              <div
-                className={`relative z-10 ${isDarkMode ? "text-slate-300" : "text-slate-600"
-                  }`}
+            <div className="relative">
+              <button
+                onClick={() => window.open('Surat, Kristian Mark (Shan) - Resume.pdf', '_blank')}
+                onMouseEnter={() => {
+                  if (tooltipTimeoutRef.current) clearTimeout(tooltipTimeoutRef.current);
+                  setShowResumeTooltip(true);
+                }}
+                onMouseLeave={() => setShowResumeTooltip(false)}
+                className={headerBtnClass}
+                aria-label="View Resume"
               >
-                <FileText size={20} />
+                <div
+                  className={`relative z-10 ${isDarkMode ? "text-slate-300" : "text-slate-600"
+                    }`}
+                >
+                  <FileText size={20} />
+                </div>
+              </button>
+
+              {/* Tooltip */}
+              <div
+                className={`absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-semibold shadow-xl transition-all duration-500 pointer-events-none z-50
+                  ${showResumeTooltip ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}
+                  ${isDarkMode ? "bg-indigo-600 text-white border border-indigo-500" : "bg-blue-600 text-white border border-blue-500"}
+                `}
+              >
+                View my Resume
+                <div 
+                  className={`absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 border-t border-l
+                    ${isDarkMode ? "bg-indigo-600 border-indigo-500" : "bg-blue-600 border-blue-500"}
+                  `}
+                />
               </div>
-            </button>
+            </div>
 
             {/* Share Button */}
             <button
