@@ -284,18 +284,25 @@ const App = () => {
 
           <div className="flex items-center gap-3">
             {/* Info/About Button */}
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className={headerBtnClass}
-              aria-label="About this site"
-            >
-              <div
-                className={`relative z-10 ${isDarkMode ? "text-slate-300" : "text-slate-600"
-                  }`}
+            <div className="relative">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className={headerBtnClass}
+                aria-label="About this site"
               >
-                <Info size={20} />
-              </div>
-            </button>
+                <div
+                  className={`relative z-10 ${isDarkMode ? "text-slate-300" : "text-slate-600"
+                    }`}
+                >
+                  <Info size={20} />
+                </div>
+              </button>
+              {/* Blinking Badge */}
+              <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3 z-20 pointer-events-none">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75 animate-subtle-ping"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+              </span>
+            </div>
 
             {/* Resume Button */}
             <div className="relative">
