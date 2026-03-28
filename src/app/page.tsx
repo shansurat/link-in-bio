@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import {
   Mail,
@@ -7,7 +8,6 @@ import {
   Database,
   Palette,
   Coffee,
-  ArrowRight,
   Moon,
   Sun,
   Share2,
@@ -17,12 +17,11 @@ import {
   MessageCircle,
   Info,
   X,
-  Zap,
-  Box,
-  Construction,
-  Terminal,
   FileText,
 } from "lucide-react";
+
+const AboutModal = dynamic(() => import("./components/AboutModal"), { ssr: false });
+const AvatarModal = dynamic(() => import("./components/AvatarModal"), { ssr: false });
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -40,26 +39,6 @@ const App = () => {
     avatar: "shansurat.webp",
     location: "Metro Manila, Philippines 🇵🇭",
   };
-
-  // Tech stack used for this specific website
-  const techStack = [
-    { name: "Next.js", icon: <Zap size={14} />, color: "text-white bg-black" },
-    {
-      name: "React",
-      icon: <Code size={14} />,
-      color: "text-blue-500 bg-blue-50",
-    },
-    {
-      name: "Tailwind CSS",
-      icon: <Palette size={14} />,
-      color: "text-cyan-500 bg-cyan-50",
-    },
-    {
-      name: "Lucide Icons",
-      icon: <Box size={14} />,
-      color: "text-orange-500 bg-orange-50",
-    },
-  ];
 
   // Resume button tooltip animation on load
   useEffect(() => {
@@ -495,14 +474,6 @@ const App = () => {
                           </p>
                         )}
                       </div>
-
-                      {link.colSpan === "md:col-span-2" && (
-                        <div
-                          className={`hidden md:block opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 ${subTextColor}`}
-                        >
-                          <ArrowRight size={20} />
-                        </div>
-                      )}
                     </div>
                   </div>
 
@@ -549,124 +520,20 @@ const App = () => {
 
       {/* About Site / Tech Stack Modal */}
       {isModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
-          onClick={() => setIsModalOpen(false)}
-        >
-          <div
-            className={`relative w-full max-w-sm p-8 rounded-2xl shadow-2xl transform transition-all scale-100 ${isDarkMode
-              ? "bg-slate-800 text-slate-100"
-              : "bg-white text-slate-900"
-              }`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/5 transition-colors"
-            >
-              <X size={20} className={subTextColor} />
-            </button>
-
-            <div className="flex flex-col gap-5">
-              {/* Header */}
-              <div className="flex items-center gap-3 pb-4 border-b border-slate-700/50">
-                <div
-                  className={`p-3 rounded-xl ${isDarkMode
-                    ? "bg-indigo-500/10 text-indigo-400"
-                    : "bg-blue-100 text-blue-600"
-                    }`}
-                >
-                  <Terminal size={24} />
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold">About This Page</h2>
-                  <p className={`text-xs ${subTextColor}`}>Site Information</p>
-                </div>
-              </div>
-
-              {/* Bio Content - Focused on the SITE */}
-              <div
-                className={`text-sm leading-relaxed space-y-4 ${subTextColor}`}
-              >
-                <p>
-                  This single-page application is designed as a performant,
-                  accessible hub for my digital presence. It uses a modern,
-                  component-based architecture to ensure fast load times and a
-                  seamless mobile experience.
-                </p>
-
-                {/* Construction Note */}
-                <div
-                  className={`p-3 rounded-lg text-xs border flex gap-3 items-start ${isDarkMode
-                    ? "bg-amber-500/5 border-amber-500/20 text-amber-200/80"
-                    : "bg-amber-50 border-amber-200 text-amber-700"
-                    }`}
-                >
-                  <Construction size={16} className="shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Status:</strong> This page serves as a temporary
-                    gateway. The primary portfolio website is currently
-                    undergoing a complete redesign and re-engineering.
-                  </span>
-                </div>
-              </div>
-
-              {/* Tech Stack Section */}
-              <div className="mt-2">
-                <h3 className="text-xs font-bold uppercase tracking-wider opacity-70 mb-3">
-                  Built With
-                </h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {techStack.map((tech) => (
-                    <div
-                      key={tech.name}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${isDarkMode
-                        ? "bg-slate-700/50 border-slate-600 hover:bg-slate-700"
-                        : "bg-slate-50 border-slate-200 hover:bg-slate-100"
-                        }`}
-                    >
-                      <span
-                        className={
-                          isDarkMode
-                            ? "text-slate-200"
-                            : tech.color.split(" ")[0]
-                        }
-                      >
-                        {tech.icon}
-                      </span>
-                      <span>{tech.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <AboutModal
+          isDarkMode={isDarkMode}
+          subTextColor={subTextColor}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
 
       {/* Avatar Expansion Modal */}
       {isAvatarExpanded && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in cursor-zoom-out"
-          onClick={() => setIsAvatarExpanded(false)}
-        >
-          <div className="relative" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={`/${profile.avatar}`}
-              alt={profile.name}
-              width={384}
-              height={384}
-              className="w-64 h-64 md:w-96 md:h-96 rounded-full border-4 border-white shadow-2xl object-cover animate-scale-in"
-              priority
-            />
-            <button
-              onClick={() => setIsAvatarExpanded(false)}
-              className="absolute -top-12 right-1/2 translate-x-1/2 p-2 text-white/80 hover:text-white transition-colors"
-            >
-              <X size={24} />
-            </button>
-          </div>
-        </div>
+        <AvatarModal
+          avatarSrc={`/${profile.avatar}`}
+          altText={profile.name}
+          onClose={() => setIsAvatarExpanded(false)}
+        />
       )}
 
     </div>
