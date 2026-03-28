@@ -207,7 +207,9 @@ const App = () => {
       colSpan: "col-span-1",
       rel: "noopener noreferrer me",
       itemProp: "sameAs",
-      brandColor: "#6e5494",
+      brandColor: isDarkMode ? "#ffffff" : "#181717",
+      brandBg: "#181717",
+      brandIconColor: "#ffffff",
     },
     {
       id: 3,
@@ -528,7 +530,12 @@ const App = () => {
                         : "ring-2 ring-blue-400/50"
                       : ""
                       }`}
-                    style={{ ["--brand-color" as string]: link.brandColor, ["--brand-color-20" as string]: `${link.brandColor}33` } as React.CSSProperties}
+                    style={{
+                      ["--brand-color" as string]: link.brandColor,
+                      ["--brand-color-20" as string]: link.brandBg || `${link.brandColor}33`,
+                      ["--brand-icon-color" as string]: link.brandIconColor || link.brandColor,
+                      ["--brand-shadow" as string]: `${link.brandColor}26`,
+                    } as React.CSSProperties}
                   >
                     <div className="relative z-10 flex items-center gap-4 p-5 h-full">
                       <div
@@ -786,11 +793,11 @@ const App = () => {
         /* Brand-color hover effects for link cards */
         .group:hover .icon-wrapper {
           background-color: var(--brand-color-20) !important;
-          color: var(--brand-color);
+          color: var(--brand-icon-color);
         }
         .group:hover > div:first-child {
           border-color: var(--brand-color-20);
-          box-shadow: 0 8px 24px -4px var(--brand-color-20);
+          box-shadow: 0 8px 24px -4px var(--brand-shadow);
         }
       `}</style>
     </div>
