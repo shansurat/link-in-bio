@@ -184,6 +184,7 @@ const App = () => {
       colSpan: "col-span-2",
       rel: "noopener noreferrer me",
       itemProp: "url",
+      brandColor: "#29B2FE",
     },
     {
       id: 2,
@@ -195,6 +196,7 @@ const App = () => {
       colSpan: "col-span-1",
       rel: "noopener noreferrer me",
       itemProp: "sameAs",
+      brandColor: "#6e5494",
     },
     {
       id: 3,
@@ -206,6 +208,7 @@ const App = () => {
       colSpan: "col-span-1",
       rel: "noopener noreferrer me",
       itemProp: "sameAs",
+      brandColor: "#0A66C2",
     },
     {
       id: 4,
@@ -217,6 +220,7 @@ const App = () => {
       colSpan: "col-span-1",
       rel: "noopener noreferrer",
       itemProp: "email",
+      brandColor: "#EA4335",
     },
     {
       id: 6,
@@ -228,6 +232,7 @@ const App = () => {
       colSpan: "col-span-1",
       rel: "noopener noreferrer",
       itemProp: "telephone",
+      brandColor: "#25D366",
     },
     {
       id: 5,
@@ -238,6 +243,7 @@ const App = () => {
       featured: false,
       colSpan: "col-span-2",
       rel: "noopener noreferrer",
+      brandColor: "#00C853",
     },
   ];
 
@@ -498,15 +504,14 @@ const App = () => {
                         : "ring-2 ring-blue-400/50"
                       : ""
                       }`}
+                    style={{ ["--brand-color" as string]: link.brandColor, ["--brand-color-20" as string]: `${link.brandColor}33` } as React.CSSProperties}
                   >
                     <div className="relative z-10 flex items-center gap-4 p-5 h-full">
                       <div
-                        className={`p-3.5 rounded-xl transition-colors shrink-0
-                        ${isDarkMode
-                            ? "bg-slate-700 group-hover:bg-indigo-500/20 group-hover:text-indigo-400"
-                            : "bg-slate-100 group-hover:bg-blue-100 group-hover:text-blue-600"
-                          }
-                      `}
+                        className="p-3.5 rounded-xl transition-colors shrink-0 icon-wrapper"
+                        style={{
+                          backgroundColor: isDarkMode ? "rgb(51 65 85)" : "rgb(241 245 249)",
+                        }}
                       >
                         {link.icon}
                       </div>
@@ -752,6 +757,16 @@ const App = () => {
         }
         .animate-subtle-ping {
           animation: subtlePing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        /* Brand-color hover effects for link cards */
+        .group:hover .icon-wrapper {
+          background-color: var(--brand-color-20) !important;
+          color: var(--brand-color);
+        }
+        .group:hover > div:first-child {
+          border-color: var(--brand-color-20);
+          box-shadow: 0 8px 24px -4px var(--brand-color-20);
         }
       `}</style>
     </div>
