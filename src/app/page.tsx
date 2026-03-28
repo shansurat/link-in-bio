@@ -23,7 +23,7 @@ import {
   Box,
   Construction,
   Terminal,
-  FileText
+  FileText,
 } from "lucide-react";
 
 const App = () => {
@@ -665,17 +665,6 @@ const App = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Subtle Close Button */}
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className={`cursor-pointer w-full py-2.5 mt-2 rounded-lg text-sm font-medium transition-colors relative overflow-hidden group ${isDarkMode
-                  ? "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
-                  : "text-slate-500 hover:text-slate-700 hover:bg-slate-100"
-                  }`}
-              >
-                <span className="relative z-10">Close</span>
-              </button>
             </div>
           </div>
         </div>
