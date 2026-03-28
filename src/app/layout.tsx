@@ -13,8 +13,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shan Surat",
-  description: "Full Stack Developer and Graphic Designer",
+  title: "Shan Surat | Full Stack Developer & Graphic Designer",
+  description: "Architecting scalable web solutions and crafting beautiful user interfaces. Bridging the gap between engineering and design.",
+  other: {
+    "script:ld+json": JSON.stringify([
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Shan Surat",
+        alternateName: ["shansurat.dev", "Shan"],
+        url: "https://shansurat.dev/",
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Shan Surat",
+        image: "shansurat.webp",
+        jobTitle: ["Full Stack Developer", "Graphic Designer"],
+        url: "https://shansurat.dev/",
+        sameAs: [
+          "https://www.freelancer.com/u/ksurat",
+          "https://github.com/shansurat",
+          "https://linkedin.com/in/shansurat",
+        ],
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Metro Manila",
+          addressCountry: "PH",
+        },
+        description:
+          "Architecting scalable web solutions and crafting beautiful user interfaces. Bridging the gap between engineering and design.",
+      },
+    ]),
+  },
 };
 
 export default function RootLayout({

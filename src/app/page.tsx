@@ -61,56 +61,6 @@ const App = () => {
     },
   ];
 
-  // const _structuredData = {
-  //   "@context": "https://schema.org",
-  //   "@type": "Person",
-  //   name: profile.name,
-  //   image: profile.avatar,
-  //   jobTitle: ["Full Stack Developer", "Graphic Designer"],
-  //   url: typeof window !== "undefined" ? window.location.href : "",
-  //   sameAs: [
-  //     "https://www.freelancer.com/u/ksurat",
-  //     "https://github.com/shansurat",
-  //     "https://linkedin.com/in/shansurat",
-  //   ],
-  //   address: {
-  //     "@type": "PostalAddress",
-  //     addressLocality: "Marikina",
-  //     addressCountry: "Philippines",
-  //   },
-  //   description: profile.bio,
-  // };
-
-  // JSON-LD Structured Data for SEO
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: profile.name,
-      "alternateName": ["shansurat.dev", "Shan"],
-      "url": "https://shansurat.dev/"
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: profile.name,
-      "image": profile.avatar,
-      "jobTitle": ["Full Stack Developer", "Graphic Designer"],
-      "url": "https://shansurat.dev/",
-      "sameAs": [
-        "https://www.freelancer.com/u/ksurat",
-        "https://github.com/shansurat",
-        "https://linkedin.com/in/shansurat"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Metro Manila",
-        "addressCountry": "PH"
-      },
-      "description": profile.bio
-    }
-  ];
-
   // Resume button tooltip animation on load
   useEffect(() => {
     const showTimer = setTimeout(() => {
@@ -292,19 +242,7 @@ const App = () => {
     <div
       className={`min-h-screen w-full transition-colors duration-300 ${bgGradient} ${textColor} font-sans flex flex-col items-center py-12 px-4 md:py-24 md:px-6 relative overflow-hidden`}
     >
-      {/* PERFORMANCE OPTIMIZATION: Preconnects */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-      />
 
-      {/* Inject JSON-LD Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      ></script>
 
       {/* Top Gradient Overlay for depth */}
       <div
@@ -731,75 +669,6 @@ const App = () => {
         </div>
       )}
 
-      <style>{`
-        @keyframes fadeInDown {
-          from {
-            opacity: 0;
-            transform: translate3d(0, -20px, 0);
-          }
-          to {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-          }
-        }
-        .animate-fade-in-down {
-          animation: fadeInDown 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translate3d(0, 20px, 0);
-          }
-          to {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-          }
-        }
-        .animate-fade-in-up {
-          animation: fadeInUp 0.6s ease-out forwards;
-          opacity: 0;
-        }
-
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.2s ease-out;
-        }
-        @keyframes scaleIn {
-          from { transform: scale(0.8); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
-        .animate-scale-in {
-          animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        @keyframes subtlePing {
-          75%, 100% {
-            transform: scale(1.5);
-            opacity: 0;
-          }
-        }
-        .animate-subtle-ping {
-          animation: subtlePing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-        }
-
-        /* Brand-color hover effects for link cards */
-        .group:hover .icon-wrapper {
-          background-color: var(--brand-color-20) !important;
-          color: var(--brand-icon-color);
-        }
-        .group:hover > div:first-child {
-          border-color: var(--brand-color-20);
-          box-shadow: 0 8px 24px -4px var(--brand-shadow);
-        }
-      `}</style>
     </div>
   );
 };
